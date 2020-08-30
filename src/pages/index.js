@@ -11,7 +11,8 @@ import About from "components/About";
 import Layout from "components/Layout";
 import ProjectCard from "components/ProjectCard";
 import { Box, Flex } from 'rebass';
-import spooch from "images/oscar-icon.png";
+
+import profile from "images/profile.png";
 
 const Hero = styled("div")`
     padding-top: 2.5em;
@@ -83,7 +84,7 @@ const ProfilePictureContainer = styled("div")`
 
     img {
         max-width: 400px;
-        width: 50%;
+        width: 100%;
         box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.04);
 
         @media(max-width:${dimensions.maxwidthTablet}px) {
@@ -182,12 +183,12 @@ const RenderBody = ({ home, projects, meta }) => (
                 {RichText.render(home.hero_title)}
             </>
             <Flex>
-            <Box p={3} width={1/2}>
+            <Box p={3} width={2/3}>
                 <ProfilePictureContainer className="ProfilePictureContainer">
-                    <img src={spooch} alt="Das me"/>
+                    <img src={profile} alt="Das me"/>
                 </ProfilePictureContainer>
             </Box>
-            <Box p={3} width={1/2}>
+            <Box p={3} width={1/3}>
                 <a href={home.hero_button_link.url}
                 target="_blank" rel="noopener noreferrer">
                     <Button>

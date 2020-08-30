@@ -3,7 +3,7 @@ import { Link } from "gatsby";
 import styled from "@emotion/styled";
 import colors from "styles/colors";
 import dimensions from "styles/dimensions";
-import Logo from "components/_ui/Logo";
+import Logo from "images/logo.png";
 
 const HeaderContainer = styled("div")`
     padding-top: 3.75em;
@@ -76,7 +76,7 @@ const Header = () => (
     <HeaderContainer>
         <HeaderContent>
             <Link to="/">
-                <Logo/>
+                <img src={Logo} alt="Vashti Kalvi" width="100px" heidht="100px"/>
             </Link>
             <HeaderLinks>
                 <Link

@@ -2,8 +2,7 @@ import React from "react";
 import { Link } from "gatsby";
 import styled from "@emotion/styled";
 import colors from "styles/colors";
-import Logo from "components/_ui/Logo";
-import spooch from "images/oscar-icon.png"
+import Logo from "images/logo.png";
 
 const FooterContainer = styled("div")`
     padding-top: 3.75em;
@@ -51,11 +50,11 @@ const FooterSpooch = styled("img")`
 const Footer = () => (
     <FooterContainer>
         <Link to="/">
-            <Logo />
+            <img src={Logo} alt="Vashti Kalvi" width="100px" height="100px"/>
         </Link>
         <FooterAuthor href="https://google.com">
             © 2020 — Developed by Rishabh Bhargava
-            <FooterSpooch className="FooterSpooch" src={spooch} />
+            <FooterSpooch className="FooterSpooch" src={Logo} />
         </FooterAuthor>
     </FooterContainer>
 )
