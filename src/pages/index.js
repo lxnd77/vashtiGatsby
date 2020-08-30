@@ -10,6 +10,8 @@ import Button from "components/_ui/Button";
 import About from "components/About";
 import Layout from "components/Layout";
 import ProjectCard from "components/ProjectCard";
+import { Box, Flex } from 'rebass';
+import spooch from "images/oscar-icon.png";
 
 const Hero = styled("div")`
     padding-top: 2.5em;
@@ -45,6 +47,47 @@ const Hero = styled("div")`
                 &:nth-of-type(5) { color: ${colors.teal600};    background-color: ${colors.teal200};}
 
             }
+        }
+    }
+`
+const ProfilePictureContainer = styled("div")`
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    overflow: hidden;
+    position: relative;
+    padding-left: 2em;
+    padding-right: 2em;
+
+    @media(max-width:${dimensions.maxwidthTablet}px) {
+        padding-top: 3em;
+        max-height: 200px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    &:before {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background: ${colors.blue500};
+        mix-blend-mode: multiply;
+        opacity: 0;
+        transition: all 150ms ease-in-out;
+    }
+
+    img {
+        max-width: 400px;
+        width: 50%;
+        box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.04);
+
+        @media(max-width:${dimensions.maxwidthTablet}px) {
+            max-width: 300px;
         }
     }
 `
@@ -133,17 +176,34 @@ const RenderBody = ({ home, projects, meta }) => (
                 },
             ].concat(meta)}
         />
+        
         <Hero>
             <>
                 {RichText.render(home.hero_title)}
             </>
-            <a href={home.hero_button_link.url}
-               target="_blank" rel="noopener noreferrer">
-                <Button>
-                    {RichText.render(home.hero_button_text)}
-                </Button>
-            </a>
+            <Flex>
+            <Box p={3} width={1/2}>
+                <ProfilePictureContainer className="ProfilePictureContainer">
+                    <img src={spooch} alt="Das me"/>
+                </ProfilePictureContainer>
+            </Box>
+            <Box p={3} width={1/2}>
+                <a href={home.hero_button_link.url}
+                target="_blank" rel="noopener noreferrer">
+                    <Button>
+                        {RichText.render(home.hero_button_text)}
+                    </Button>
+                </a>
+            </Box>
+            </Flex>
         </Hero>
+        <Section>
+            {RichText.render(home.about_title)}
+            <About
+                bio={home.about_bio}
+                socialLinks={home.about_links}
+            />
+        </Section>
         <Section>
             {projects.map((project, i) => (
                 <ProjectCard
@@ -159,19 +219,13 @@ const RenderBody = ({ home, projects, meta }) => (
                 See more work <span>&#8594;</span>
             </WorkAction>
         </Section>
-        <Section>
-            {RichText.render(home.about_title)}
-            <About
-                bio={home.about_bio}
-                socialLinks={home.about_links}
-            />
-        </Section>
+        
     </>
 );
 
 export default ({ data }) => {
     //Required check for no data being returned
-    const doc = data.prismic.allHomepages.edges.slice(0, 1).pop();
+    const doc = data.prismic.allHoms.edges.slice(0, 1).pop();
     const projects = data.prismic.allProjects.edges;
     const meta = data.site.siteMetadata;
 
@@ -193,7 +247,7 @@ RenderBody.propTypes = {
 export const query = graphql`
     {
         prismic {
-            allHomepages {
+            allHoms {
                 edges {
                     node {
                         hero_title
