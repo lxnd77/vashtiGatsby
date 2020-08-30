@@ -10,7 +10,7 @@ import Button from "components/_ui/Button";
 import About from "components/About";
 import Layout from "components/Layout";
 import ProjectCard from "components/ProjectCard";
-import { Box, Flex } from 'rebass';
+import { Box, Flex } from "rebass";
 
 import profile from "images/profile.png";
 
