@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "gatsby";
 import styled from "@emotion/styled";
 import colors from "styles/colors";
-import Logo from "images/logo.png";
+import Logo from "images/icon.png";
+
 
 const FooterContainer = styled("div")`
     padding-top: 3.75em;
@@ -27,24 +28,7 @@ const FooterAuthor = styled("a")`
 
      &:hover {
          color: ${colors.blue900};
-
-        .FooterSpooch {
-            animation-name: rotate;
-            animation-duration: 1.5s;
-            animation-iteration-count: infinite;
-            animation-timing-function: linear;
-        }
     }
-
-    @keyframes rotate {
-        from {transform: rotate(0deg);}
-        to {transform: rotate(360deg);}
-    }
-`
-
-const FooterSpooch = styled("img")`
-    max-width: 33px;
-    margin-top: 0.25em;
 `
 
 const Footer = () => (
@@ -54,7 +38,6 @@ const Footer = () => (
         </Link>
         <FooterAuthor href="https://google.com">
             © 2020 — Developed by Rishabh Bhargava
-            <FooterSpooch className="FooterSpooch" src={Logo} />
         </FooterAuthor>
     </FooterContainer>
 )

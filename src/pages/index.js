@@ -10,6 +10,7 @@ import Button from "components/_ui/Button";
 import About from "components/About";
 import Layout from "components/Layout";
 import ProjectCard from "components/ProjectCard";
+import SkillCard from "components/SkillCard";
 import { Box, Flex } from "rebass";
 
 import profile from "images/profile.png";
@@ -17,7 +18,7 @@ import profile from "images/profile.png";
 const Hero = styled("div")`
     padding-top: 2.5em;
     padding-bottom: 3em;
-    margin-bottom: 6em;
+    margin-bottom: 3em;
     max-width: 830px;
 
     @media(max-width:${dimensions.maxwidthMobile}px) {
@@ -94,7 +95,7 @@ const ProfilePictureContainer = styled("div")`
 `
 
 const Section = styled("div")`
-    margin-bottom: 10em;
+    margin-bottom: 4em;
     display: flex;
     flex-direction: column;
 
@@ -137,7 +138,7 @@ const WorkAction = styled(Link)`
     }
 `
 
-const RenderBody = ({ home, projects, meta }) => (
+const RenderBody = ({ home, projects, skills, meta }) => (
     <>
         <Helmet
             title={meta.title}
@@ -206,6 +207,19 @@ const RenderBody = ({ home, projects, meta }) => (
             />
         </Section>
         <Section>
+            <Flex>
+            {skills.map((skill, i) => (
+                <SkillCard
+                    key = {i}
+                    title = {skill.node.skill_title}
+                    text = {skill.node.skill_text}
+                    image = {skill.node.skill_image}
+                    uid = {skill.node._meta.uid}
+                />
+            ))}
+            </Flex>
+        </Section>
+        <Section>
             {projects.map((project, i) => (
                 <ProjectCard
                     key={i}
@@ -228,13 +242,14 @@ export default ({ data }) => {
     //Required check for no data being returned
     const doc = data.prismic.allHoms.edges.slice(0, 1).pop();
     const projects = data.prismic.allProjects.edges;
+    const skills = data.prismic.allSkills.edges;
     const meta = data.site.siteMetadata;
 
     if (!doc || !projects) return null;
 
     return (
         <Layout>
-            <RenderBody home={doc.node} projects={projects} meta={meta}/>
+            <RenderBody home={doc.node} projects={projects} skills={skills} meta={meta}/>
         </Layout>
     )
 }
@@ -242,6 +257,7 @@ export default ({ data }) => {
 RenderBody.propTypes = {
     home: PropTypes.object.isRequired,
     projects: PropTypes.array.isRequired,
+    skills: PropTypes.array.isRequired,
     meta: PropTypes.object.isRequired,
 };
 
@@ -276,6 +292,18 @@ export const query = graphql`
                         project_preview_thumbnail
                         project_category
                         project_post_date
+                        _meta {
+                            uid
+                        }
+                    }
+                }
+            }
+            allSkills {
+                edges {
+                    node {
+                        skill_title
+                        skill_text
+                        skill_image
                         _meta {
                             uid
                         }

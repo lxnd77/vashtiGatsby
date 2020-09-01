@@ -7,7 +7,9 @@ exports.linkResolver = function linkResolver(doc) {
     if (doc.type === 'Post') {
         return '/blog/' + doc.uid;
     }
-
+    // if (doc.type === 'Category') {
+    //     return '/category/' + doc.category;
+    // }
     // Homepage route fallback
     return '/';
 }

@@ -1,10 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 import Helmet from "react-helmet";
-import { graphql } from "gatsby";
+import { graphql  } from "gatsby";
+import Button from "components/_ui/Button";
 import styled from "@emotion/styled";
 import dimensions from "styles/dimensions";
 import Layout from "components/Layout";
+import { Flex } from "rebass";
 import PostCard from "components/PostCard";
 
 const BlogTitle = styled("h1")`
@@ -27,10 +29,26 @@ const BlogGrid = styled("div")`
     }
 `
 
-const Blog = ({ posts, meta }) => (
+
+
+const Blog = ({ posts, meta, categories }) => {
+    
+    
+    const [filteredPosts, setFilteredPosts] = useState(posts);
+
+    const onCategoryClick = (category) => {
+        console.log(category);
+        let f = posts.filter((post) => {
+            return post.node.post_category[0].text.includes(category);
+        });
+        console.log(f);
+        setFilteredPosts(f);
+    }
+
+    return(
     <>
         <Helmet
-            title={`Blog | Vahsti Kalvi`}
+            title={`Blog | Vashti Kalvi`}
             titleTemplate={`%s | Blog | Vashti Kalvi`}
             meta={[
                 {
@@ -71,8 +89,23 @@ const Blog = ({ posts, meta }) => (
             <BlogTitle>
                 Blog
             </BlogTitle>
+            <Flex>
+                {categories.map((category,i) => (
+                    <Button
+                    key={i}
+                    onClick={()=>onCategoryClick(category.node.post_category[0].text)}>
+                        {category.node.post_category[0].text}    
+                    </Button>
+                        
+                ))}
+                <Button 
+                onClick={()=>onCategoryClick("")}>
+                    All
+                </Button>
+                
+            </Flex>
             <BlogGrid>
-                {posts.map((post, i) => (
+                {filteredPosts.map((post, i) => (
                     <PostCard
                         key={i}
                         author={post.node.post_author}
@@ -85,22 +118,27 @@ const Blog = ({ posts, meta }) => (
                 ))}
             </BlogGrid>
         </Layout>
-    </>
-);
+        </>
+    );
+
+}
 
 export default ({ data }) => {
     const posts = data.prismic.allPosts.edges;
     const meta = data.site.siteMetadata;
+    const categories = data.prismic.categs.edges;
     if (!posts) return null;
+    if (!categories) return null;
 
     return (
-        <Blog posts={posts} meta={meta}/>
+        <Blog posts={posts} meta={meta} categories={categories} />
     )
 }
 
 Blog.propTypes = {
     posts: PropTypes.array.isRequired,
     meta: PropTypes.object.isRequired,
+    categories: PropTypes.array.isRequired,
 };
 
 
@@ -121,7 +159,15 @@ export const query = graphql`
                     }
                 }
             }
+            categs: allPosts(sortBy: post_category_ASC) {
+                edges {
+                    node {
+                        post_category
+                    }
+                }
+            }
         }
+
         site {
             siteMetadata {
                 title
@@ -132,3 +178,4 @@ export const query = graphql`
     }
 `
 
+//{/* // to={"/blog/category/".concat(category.node.post_category)} */}
