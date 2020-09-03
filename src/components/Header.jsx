@@ -6,7 +6,7 @@ import dimensions from "styles/dimensions";
 import Logo from "images/logo.png";
 
 const HeaderContainer = styled("div")`
-    padding-top: 3.75em;
+    padding-top: 3em;
     padding-bottom: 3em;
 `
 
@@ -76,7 +76,7 @@ const Header = () => (
     <HeaderContainer>
         <HeaderContent>
             <Link to="/">
-                <img src={Logo} alt="Vashti Kalvi" width="100px" heidht="100px"/>
+                <img src={Logo} alt="Vashti Kalvi" width="85px" heidht="85px"/>
             </Link>
             <HeaderLinks>
                 <Link

@@ -64,7 +64,6 @@ const ProfilePictureContainer = styled("div")`
 
     @media(max-width:${dimensions.maxwidthTablet}px) {
         padding-top: 3em;
-        max-height: 200px;
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
@@ -84,7 +83,7 @@ const ProfilePictureContainer = styled("div")`
     }
 
     img {
-        max-width: 400px;
+        max-width: 500px;
         width: 100%;
         box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.04);
 
@@ -184,12 +183,8 @@ const RenderBody = ({ home, projects, skills, meta }) => (
                 {RichText.render(home.hero_title)}
             </>
             <Flex>
-            <Box p={3} width={2/3}>
-                <ProfilePictureContainer className="ProfilePictureContainer">
-                    <img src={profile} alt="Das me"/>
-                </ProfilePictureContainer>
-            </Box>
-            <Box p={3} width={1/3}>
+            
+            <Box p={1} width={1/3}>
                 <a href={home.hero_button_link.url}
                 target="_blank" rel="noopener noreferrer">
                     <Button>
@@ -201,13 +196,26 @@ const RenderBody = ({ home, projects, skills, meta }) => (
         </Hero>
         <Section>
             {RichText.render(home.about_title)}
-            <About
-                bio={home.about_bio}
-                socialLinks={home.about_links}
-            />
+            <Flex flexWrap='wrap'>
+                <Box p={1} width={['100%','100%',2/3]}>
+                    <About
+                    bio={home.about_bio}
+                    socialLinks={home.about_links}
+                    />
+                </Box>
+                <Box p={1} width={['100%','100%',1/3]}>
+                    <ProfilePictureContainer className="ProfilePictureContainer">
+                        <img src={profile} alt="Das me"/>
+                    </ProfilePictureContainer>
+                </Box>
+            </Flex>
         </Section>
         <Section>
-            <Flex>
+            <Flex flexWrap='wrap'
+            sx={{
+                p: 4,
+                
+              }}>
             {skills.map((skill, i) => (
                 <SkillCard
                     key = {i}

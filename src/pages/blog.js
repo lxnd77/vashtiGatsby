@@ -33,15 +33,24 @@ const BlogGrid = styled("div")`
 
 const Blog = ({ posts, meta, categories }) => {
     
-    
+    var temp = [];
+    var done = [];
+    for(let i=0; i<categories.length; i++){
+        if(!done.includes(categories[i].node.post_category[0].text)){
+            console.log(categories[i]);
+            
+            done.push(categories[i].node.post_category[0].text);
+            temp.push(categories[i]);
+        }
+    }
+    const uniqueCategories = temp;
+
     const [filteredPosts, setFilteredPosts] = useState(posts);
 
     const onCategoryClick = (category) => {
-        console.log(category);
         let f = posts.filter((post) => {
             return post.node.post_category[0].text.includes(category);
         });
-        console.log(f);
         setFilteredPosts(f);
     }
 
@@ -90,7 +99,7 @@ const Blog = ({ posts, meta, categories }) => {
                 Blog
             </BlogTitle>
             <Flex>
-                {categories.map((category,i) => (
+                {uniqueCategories.map((category,i) => (
                     <Button
                     key={i}
                     onClick={()=>onCategoryClick(category.node.post_category[0].text)}>
@@ -124,9 +133,11 @@ const Blog = ({ posts, meta, categories }) => {
 }
 
 export default ({ data }) => {
+
     const posts = data.prismic.allPosts.edges;
     const meta = data.site.siteMetadata;
     const categories = data.prismic.categs.edges;
+    
     if (!posts) return null;
     if (!categories) return null;
 
@@ -160,6 +171,7 @@ export const query = graphql`
                 }
             }
             categs: allPosts(sortBy: post_category_ASC) {
+                
                 edges {
                     node {
                         post_category

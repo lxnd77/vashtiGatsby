@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import dimensions from "styles/dimensions";
 import colors from "styles/colors";
 import PropTypes from "prop-types";
+import { Box } from "rebass";
 
 const SkillCardContainer = styled("div")`
     border: 1px solid ${colors.grey200};
@@ -15,7 +16,7 @@ const SkillCardContainer = styled("div")`
     flex-direction: column;
     box-shadow: 0px 9px 24px rgba(0, 0, 0, 0.06);
     transition: all 150ms ease-in-out;
-    max-width: 300px;
+    max-width: 400px;
 
     &:hover {
         box-shadow: 0px 9px 24px rgba(0, 0, 0, 0.1);
@@ -51,11 +52,12 @@ const SkillDescription = styled("div")`
 
 const SkillCardImageContainer = styled("div")`
     background: ${colors.grey200};
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    position: relative;
+    position: static;
     padding-left: 2em;
     padding-right: 2em;
 
@@ -70,8 +72,7 @@ const SkillCardImageContainer = styled("div")`
     &:before {
         position: absolute;
         content: "";
-        width: 100%;
-        height: 100%;
+
         left: 0;
         top: 0;
         background: ${colors.blue500};
@@ -82,7 +83,6 @@ const SkillCardImageContainer = styled("div")`
 
     img {
         max-width: 200px;
-        width: 100%;
         box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.04);
 
         @media(max-width:${dimensions.maxwidthTablet}px) {
@@ -92,17 +92,20 @@ const SkillCardImageContainer = styled("div")`
 `
 
 const SkillCard = ({ title, text, image, uid}) => (
-    <SkillCardContainer className="BlogSkillCard">
-        <SkillCardImageContainer className="SkillCardImageContainer">
-            <img src={image.url} alt={title[0].text}/>
-        </SkillCardImageContainer>
-        <SkillTitle>
-            {title[0].text}
-        </SkillTitle>
-        <SkillDescription>
-            {RichText.render(text)}
-        </SkillDescription>       
-    </SkillCardContainer>
+    <Box width={['100%','50%','33%']} p={2}>
+
+        <SkillCardContainer className="BlogSkillCard">
+            <SkillCardImageContainer className="SkillCardImageContainer">
+                <img src={image.url} alt={title[0].text}/>
+            </SkillCardImageContainer>
+            <SkillTitle>
+                {title[0].text}
+            </SkillTitle>
+            <SkillDescription>
+                {RichText.render(text)}
+            </SkillDescription>       
+        </SkillCardContainer>
+    </Box>
 )
 
 export default SkillCard;

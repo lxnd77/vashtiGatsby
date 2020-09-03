@@ -33,13 +33,14 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-prismic-starter-prist`,
-        short_name: `prist`,
+        name: `vashti-kalvi-website`,
+        short_name: `vashti-kalvi`,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
         icon: `src/images/icon.png`, // This path is relative to the root of the site.
+        cache_busting_mode: `none`,
       },
     },
     // https://www.gatsbyjs.org/packages/gatsby-plugin-google-analytics/
