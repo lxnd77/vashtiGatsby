@@ -47,13 +47,6 @@ exports.createPages = async ({ graphql, actions }) => {
                         }
                     }
                 }
-                categs: allPosts(sortBy: post_category_ASC) {
-                    edges {
-                        node {
-                            post_category
-                        }
-                    }
-                }
             }
         }
     `)
@@ -61,11 +54,9 @@ exports.createPages = async ({ graphql, actions }) => {
 
     const projectsList = result.data.prismic.allProjects.edges;
     const postsList = result.data.prismic.allPosts.edges;
-    const categoriesList = result.data.prismic.categs.edges;
 
     const projectTemplate = require.resolve('./src/templates/project.jsx');
     const postTemplate = require.resolve('./src/templates/post.jsx');
-    const categoryTemplate = require.resolve('./src/templates/blogCategory.jsx');
 
     projectsList.forEach(edge => {
         // The uid you assigned in Prismic is the slug!
@@ -92,16 +83,4 @@ exports.createPages = async ({ graphql, actions }) => {
             },
         })
     })
-
-    // categoriesList.forEach(edge => {
-    //     createPage({
-    //         type: 'Category',
-    //         match: '/category/:category',
-    //         path: `/category/${edge.node.post_category[0].text}`,
-    //         component: postTemplate,
-    //         context: {
-    //             uid: edge.node.post_category[0].text,
-    //         },
-    //     })
-    // })
 }
