@@ -6,18 +6,22 @@ import { graphql } from 'gatsby';
 import { RichText } from "prismic-reactjs";
 import styled from "@emotion/styled";
 import colors from "styles/colors";
+import { Flex, Box } from "rebass";
 import Layout from "components/Layout";
 
 const PostHeroContainer = styled("div")`
-    max-height: 500px;
-    overflow: hidden;
+   
+    
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     margin-bottom: 3em;
 
     img {
-        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        display:block;
+        margin:auto;
     }
 `
 
@@ -60,15 +64,32 @@ const PostTitle = styled("div")`
 `
 
 const PostBody = styled("div")`
-    max-width: 550px;
+    max-width: 800px;
     margin: 0 auto;
+    align-items: center;
+    img {
+        max-width:100%;
+        max-height:100%;
+        display:block;
+        margin:auto;
+    }
+    a{
+        max-width:100%;
+        max-height:100%
+    }
 
     .block-img {
         margin-top: 3.5em;
         margin-bottom: 0.5em;
 
         img {
-            width: 100%;
+            max-width:100%;
+            max-height:100%
+            align-items: center;
+        }
+        a{
+            max-width:100%;
+            max-height:100%
         }
     }
 `
@@ -92,11 +113,77 @@ const PostDate = styled("div")`
     margin: 0;
 `
 
+
 const Post = ({ post, meta }) => {
+
+    const pageContent = post.body.map((slice, index) => {
+        
+        if(slice.type === 'text'){
+            return (
+                <div className="text" key={`slice-${index}`}>
+                  {RichText.render(slice.primary.text)}
+                </div>
+              )
+        }
+
+        if(slice.type === 'paragraph_s_'){
+            return (
+                <div className="text" key={`slice-${index}`}>
+                  {RichText.render(slice.primary.paragraph)}
+                </div>
+              );
+        }
+
+        if(slice.type === 'image'){
+            return(
+                <img max-width={"480px"} key={`slice-${index}`} alt={"img"} src={slice.primary.image.url}/>
+            );
+        }
+        if(slice.type === 'imglink'){
+            return(
+                <a href={slice.primary.link.url}>
+                    <img max-width={"480px"} key={`slice-${index}`} alt={"img"} src={slice.primary.image.url}/>
+                </a>
+            );
+        }
+        if(slice.type === 'imageleftwordsright'){
+            return(
+                <div>
+                    <Flex>
+                        <Box width={['100%','100%',1/3]}>
+                            <img key={`slice-${index}`} alt={"img"} src={slice.primary.image.url}/>
+                        </Box>
+                        <Box width={['100%','100%',2/3]}>
+                            {RichText.render(slice.primary.text)}
+                        </Box>
+                    </Flex>
+                </div>
+            );
+        }
+        if(slice.type === 'imagerightwordsleft'){
+            return(
+                <div>
+                    <Flex>
+                        <Box width={['100%','100%',2/3]}>
+                            {RichText.render(slice.primary.text)} 
+                        </Box>
+                        <Box width={['100%','100%',1/3]}>
+                            <img key={`slice-${index}`} alt={"img"} src={slice.primary.image.url}/> 
+                        </Box>
+                    </Flex>
+                </div>
+            );
+        }
+
+        return null;
+
+    }); 
+
     return (
         <>
             <Helmet
-                title={`${post.post_title[0].text} | Vashti Kalvi`}
+                defer={false}
+                title={`${post.post_title[0].text} | Blog`}
                 titleTemplate={`%s | ${meta.title}`}
                 meta={[
                     {
@@ -105,7 +192,7 @@ const Post = ({ post, meta }) => {
                     },
                     {
                         property: `og:title`,
-                        content: `${post.post_title[0].text} | Vashti Kalvi`,
+                        content: `${post.post_title[0].text} | Blog`,
                     },
                     {
                         property: `og:description`,
@@ -148,6 +235,7 @@ const Post = ({ post, meta }) => {
                         <Moment format="MMMM D, YYYY">{post.post_date}</Moment>
                     </PostDate>
                 </PostMetas>
+                  
                     {post.post_hero_image && (
                     <PostHeroContainer>
                         <img src={post.post_hero_image.url} alt="bees" />
@@ -157,7 +245,7 @@ const Post = ({ post, meta }) => {
                     </PostHeroContainer>
                 )}
                 <PostBody>
-                    {RichText.render(post.post_body)}
+                    {pageContent}
                 </PostBody>
             </Layout>
         </>
@@ -188,11 +276,65 @@ export const query = graphql`
                         post_hero_annotation
                         post_date
                         post_category
-                        post_body
                         post_author
                         post_preview_description
                         _meta {
                             uid
+                        }
+                        body{
+                            ... on PRISMIC_PostBodyText {
+                                type
+                                primary{
+                                    title
+                                }
+                            }
+                            ... on PRISMIC_PostBodyParagraph_s_ {
+                                type
+                                primary{
+                                    paragraph
+                                }
+                            }
+                            ... on PRISMIC_PostBodyImage {
+                                type
+                                primary{
+                                    image
+                                }
+                            }
+                            ... on PRISMIC_PostBodyImglink {
+                                type
+                                label
+                                primary{
+                                    image
+                                    link{
+                                        ... on PRISMIC__ExternalLink {
+                                            _linkType
+                                            url
+                                        }
+                                        ... on PRISMIC__FileLink {
+                                            _linkType
+                                            url
+                                        }
+                                        ... on PRISMIC__ImageLink {
+                                        _linkType
+                                        url
+                                        }
+                                    }
+                                }
+                            }
+                            ... on PRISMIC_PostBodyImageleftwordsright {
+                                type
+                                primary{
+                                    image
+                                    text
+                                }
+                            }
+                            ... on PRISMIC_PostBodyImagerightwordsleft {
+                                type
+                                primary{
+                                    image
+                                    text
+                                }
+                            }
                         }
                     }
                 }

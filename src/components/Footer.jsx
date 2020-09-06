@@ -27,16 +27,16 @@ const FooterAuthor = styled("a")`
     margin-top: 1.5em;
 
      &:hover {
-         color: ${colors.blue900};
+         color: ${colors.vashti100};
     }
 `
 
 const Footer = () => (
     <FooterContainer>
         <Link to="/">
-            <img src={Logo} alt="Vashti Kalvi" width="100px" height="100px"/>
+            <img src={Logo} alt="Vashti Kalvi" width="150px" height="150px"/>
         </Link>
-        <FooterAuthor href="https://google.com">
+        <FooterAuthor href="https://github.com/lxnd77">
             © 2020 — Developed by Rishabh Bhargava
         </FooterAuthor>
     </FooterContainer>

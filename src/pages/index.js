@@ -6,7 +6,6 @@ import { graphql, Link } from "gatsby";
 import styled from "@emotion/styled";
 import colors from "styles/colors";
 import dimensions from "styles/dimensions";
-import Button from "components/_ui/Button";
 import About from "components/About";
 import Layout from "components/Layout";
 import ProjectCard from "components/ProjectCard";
@@ -61,6 +60,8 @@ const ProfilePictureContainer = styled("div")`
     position: relative;
     padding-left: 2em;
     padding-right: 2em;
+    padding-top: 2em;
+    padding-bottom: 2em;
 
     @media(max-width:${dimensions.maxwidthTablet}px) {
         padding-top: 3em;
@@ -76,7 +77,7 @@ const ProfilePictureContainer = styled("div")`
         height: 100%;
         left: 0;
         top: 0;
-        background: ${colors.blue500};
+        background: ${colors.vashti100};
         mix-blend-mode: multiply;
         opacity: 0;
         transition: all 150ms ease-in-out;
@@ -85,7 +86,7 @@ const ProfilePictureContainer = styled("div")`
     img {
         max-width: 500px;
         width: 100%;
-        box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.04);
+        box-shadow: 0px 0px 24px ${colors.vashti100};
 
         @media(max-width:${dimensions.maxwidthTablet}px) {
             max-width: 300px;
@@ -126,7 +127,7 @@ const WorkAction = styled(Link)`
     }
 
     &:hover {
-        color: ${colors.blue500};
+        color: ${colors.vashti100};
         transition: all 150ms ease-in-out;
 
         span {
@@ -140,8 +141,9 @@ const WorkAction = styled(Link)`
 const RenderBody = ({ home, projects, skills, meta }) => (
     <>
         <Helmet
+            defer={false}
             title={meta.title}
-            titleTemplate={`%s | ${meta.title}`}
+            titleTemplate={`%s`}
             meta={[
                 {
                     name: `description`,
@@ -182,7 +184,7 @@ const RenderBody = ({ home, projects, skills, meta }) => (
             <>
                 {RichText.render(home.hero_title)}
             </>
-            <Flex>
+            {/* <Flex>
             
             <Box p={1} width={1/3}>
                 <a href={home.hero_button_link.url}
@@ -192,7 +194,7 @@ const RenderBody = ({ home, projects, skills, meta }) => (
                     </Button>
                 </a>
             </Box>
-            </Flex>
+            </Flex> */}
         </Hero>
         <Section>
             {RichText.render(home.about_title)}
@@ -205,7 +207,7 @@ const RenderBody = ({ home, projects, skills, meta }) => (
                 </Box>
                 <Box p={1} width={['100%','100%',1/3]}>
                     <ProfilePictureContainer className="ProfilePictureContainer">
-                        <img src={profile} alt="Das me"/>
+                        <img src={profile} alt="Vashti"/>
                     </ProfilePictureContainer>
                 </Box>
             </Flex>

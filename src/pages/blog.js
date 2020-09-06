@@ -15,11 +15,11 @@ const BlogTitle = styled("h1")`
 
 const BlogGrid = styled("div")`
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     grid-gap: 2.5em;
 
     @media(max-width: 1050px) {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(1, 1fr);
         grid-gap: 1.5em;
     }
 
@@ -28,7 +28,9 @@ const BlogGrid = styled("div")`
         grid-gap: 2.5em;
     }
 `
-
+const CategoryButtonContainer = styled("div")`
+    margin-bottom: 1em;
+`
 
 
 const Blog = ({ posts, meta, categories }) => {
@@ -37,7 +39,6 @@ const Blog = ({ posts, meta, categories }) => {
     var done = [];
     for(let i=0; i<categories.length; i++){
         if(!done.includes(categories[i].node.post_category[0].text)){
-            console.log(categories[i]);
             
             done.push(categories[i].node.post_category[0].text);
             temp.push(categories[i]);
@@ -57,8 +58,9 @@ const Blog = ({ posts, meta, categories }) => {
     return(
     <>
         <Helmet
-            title={`Blog | Vashti Kalvi`}
-            titleTemplate={`%s | Blog | Vashti Kalvi`}
+            defer={false}
+            title={`Blog`}
+            titleTemplate={`%s | Vashti Kalvi`}
             meta={[
                 {
                     name: `description`,
@@ -66,7 +68,7 @@ const Blog = ({ posts, meta, categories }) => {
                 },
                 {
                     property: `og:title`,
-                    content: `Blog | Vashti Kalvi`,
+                    content: meta.title,
                 },
                 {
                     property: `og:description`,
@@ -98,21 +100,22 @@ const Blog = ({ posts, meta, categories }) => {
             <BlogTitle>
                 Blog
             </BlogTitle>
-            <Flex>
-                {uniqueCategories.map((category,i) => (
-                    <Button
-                    key={i}
-                    onClick={()=>onCategoryClick(category.node.post_category[0].text)}>
-                        {category.node.post_category[0].text}    
+            <CategoryButtonContainer>
+                <Flex>
+                    {uniqueCategories.map((category,i) => (
+                        <Button
+                        key={i}
+                        onClick={()=>onCategoryClick(category.node.post_category[0].text)}>
+                            {category.node.post_category[0].text}    
+                        </Button>
+                            
+                    ))}
+                    <Button 
+                    onClick={()=>onCategoryClick("")}>
+                        All
                     </Button>
-                        
-                ))}
-                <Button 
-                onClick={()=>onCategoryClick("")}>
-                    All
-                </Button>
-                
-            </Flex>
+                </Flex>
+            </CategoryButtonContainer>
             <BlogGrid>
                 {filteredPosts.map((post, i) => (
                     <PostCard
@@ -122,6 +125,7 @@ const Blog = ({ posts, meta, categories }) => {
                         title={post.node.post_title}
                         date={post.node.post_date}
                         description={post.node.post_preview_description}
+                        image={post.node.post_hero_image}
                         uid={post.node._meta.uid}
                     />
                 ))}
@@ -136,7 +140,7 @@ export default ({ data }) => {
 
     const posts = data.prismic.allPosts.edges;
     const meta = data.site.siteMetadata;
-    const categories = data.prismic.categs.edges;
+    const categories = data.prismic.postcategs.edges;
     
     if (!posts) return null;
     if (!categories) return null;
@@ -164,13 +168,14 @@ export const query = graphql`
                         post_category
                         post_preview_description
                         post_author
+                        post_hero_image
                         _meta {
                             uid
                         }
                     }
                 }
             }
-            categs: allPosts(sortBy: post_category_ASC) {
+            postcategs: allPosts(sortBy: post_category_ASC) {
                 
                 edges {
                     node {

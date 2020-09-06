@@ -6,13 +6,17 @@ import dimensions from "styles/dimensions";
 import Logo from "images/logo.png";
 
 const HeaderContainer = styled("div")`
-    padding-top: 3em;
-    padding-bottom: 3em;
+    
+    
 `
 
 const HeaderContent = styled("div")`
     display: flex;
     justify-content: space-between;
+    margin-top: 1em;
+    a{
+        position: static;
+    }
 `
 
 const HeaderLinks = styled("div")`
@@ -21,8 +25,9 @@ const HeaderLinks = styled("div")`
     grid-gap: 7em;
     justify-content: flex-end;
     width: 100%;
+    height: 50%;
     max-width: 200px;
-
+    margin-right: 1em;
     @media(max-width: ${dimensions.maxwidthTablet}px) {
         grid-gap: 5.5em;
     }
@@ -32,14 +37,14 @@ const HeaderLinks = styled("div")`
     }
 
     a {
-        color: currentColor;
+        color: ${colors.vashti100};
         text-decoration: none;
-        border-bottom: 3px solid transparent;
+        border-bottom: 5px solid transparent;
         font-weight: 600;
-        font-size: 0.95em;
+        font-size: 1.25em;
         height: 100%;
         padding-bottom: 1.25em;
-        padding-top: 0.25em;
+        padding-top: 2em;
         display: block;
         position: relative;
 
@@ -53,20 +58,20 @@ const HeaderLinks = styled("div")`
             bottom: -3px;
             right: 50%;
             margin-right: -9px;
-            transition: 100ms ease-in-out background;
+            transition: 500ms ease-in-out background;
         }
 
         &:hover {
             &:after {
-                background: ${colors.blue500};
-                transition: 100ms ease-in-out background;
+                background: ${colors.vashti100};
+                transition: 500ms ease-in-out background;
             }
         }
 
         &.Link--is-active {
             &:after {
-                background: ${colors.blue500};
-                transition: 100ms ease-in-out background;
+                background: ${colors.vashti100};
+                transition: 500ms ease-in-out background;
             }
         }
     }
@@ -76,7 +81,7 @@ const Header = () => (
     <HeaderContainer>
         <HeaderContent>
             <Link to="/">
-                <img src={Logo} alt="Vashti Kalvi" width="85px" heidht="85px"/>
+                <img src={Logo} alt="Vashti Kalvi" width="150px" height="150px"/>
             </Link>
             <HeaderLinks>
                 <Link

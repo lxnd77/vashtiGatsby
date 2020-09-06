@@ -4,23 +4,33 @@ import { Link } from "gatsby";
 import { RichText } from "prismic-reactjs";
 import styled from "@emotion/styled";
 import colors from "styles/colors";
+import dimensions from "styles/dimensions"
 import PropTypes from "prop-types";
 
 const PostCardContainer = styled(Link)`
-    border: 1px solid ${colors.grey200};
-    padding: 3em 2.5em 2.25em 2.5em;
-    border-radius: 3px;
+    display: grid;
+    grid-template-columns: 4fr 7fr;
+    box-shadow: 0px 9px 24px rgba(0, 0, 0, 0.06);
+    margin-bottom: 2em;
+    transition: all 150ms ease-in-out;
     text-decoration: none;
     color: currentColor;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0px 9px 24px rgba(0, 0, 0, 0.06);
-    transition: all 150ms ease-in-out;
+
+    @media(max-width:950px) {
+        grid-template-columns: 4.5fr 7fr;
+    }
+
+    @media(max-width:${dimensions.maxwidthTablet}px) {
+        grid-template-columns: 1fr;
+    }
+
+    @media(max-width:${dimensions.maxwidthMobile}px) {
+        margin-bottom: 2em;
+    }
 
     &:hover {
         box-shadow: 0px 9px 24px rgba(0, 0, 0, 0.1);
         transition: all 150ms ease-in-out;
-        cursor: pointer;
 
         .PostCardAction {
             color: ${colors.blue500};
@@ -32,42 +42,63 @@ const PostCardContainer = styled(Link)`
                 transition: transform 150ms ease-in-out;
             }
         }
+
+        .PostCardContent::before {
+            opacity: 0.02;
+            transition: all 150ms ease-in-out;
+        }
+
+        .PostCardImageContainer::before {
+            opacity: 0.2;
+            transition: all 150ms ease-in-out;
+        }
     }
 `
 
-const PostCategory = styled("h6")`
+const PostCardContent = styled("div")`
+    background: white;
+    padding: 4em 3em 2.25em 3em;
+    position: relative;
+
+    &:before {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background: ${colors.blue500};
+        mix-blend-mode: multiply;
+        opacity: 0;
+        transition: all 150ms ease-in-out;
+    }
+
+    @media(max-width:950px) {
+        padding: 3.25em 2.5em 2em 2.5em;
+    }
+
+    @media(max-width:${dimensions.maxwidthTablet}px) {
+        grid-row: 2;
+    }
+`
+
+const PostCardCategory = styled("h6")`
     font-weight: 600;
     color: ${colors.grey600};
 `
 
-const PostTitle = styled("h3")`
-    margin: 0;
+const PostCardTitle = styled("h3")`
+    margin-bottom: 0.5em;
     margin-top: 0.5em;
 `
 
-const PostMetas = styled("div")`
-    display: flex;
-    align-items: center;
-    margin-top: 1.5em;
-    justify-content: space-between;
-    font-size: 0.85em;
-    color: ${colors.grey600};
-`
+const PostCardBlurb = styled("div")`
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-bottom: 5em;
 
-const PostAuthor = styled("div")`
-    margin: 0;
-`
-
-const PostDate = styled("div")`
-    margin: 0;
-`
-
-const PostDescription = styled("div")`
-    margin-top: 2em;
-    margin-bottom: 4em;
-
-    p:last-of-type {
-        margin: 0;
+    @media(max-width:${dimensions.maxwidthTablet}px) {
+        margin-bottom: 2.5em;
     }
 `
 
@@ -85,21 +116,108 @@ const PostCardAction = styled("div")`
     }
 `
 
-const PostCard = ({ author, category, date, title, description, uid}) => (
+const PostCardImageContainer = styled("div")`
+    background: ${colors.grey200};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-bottom: 1em;
+    padding-top: 1em;
+
+    @media(max-width:${dimensions.maxwidthTablet}px) {
+        max-height: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    &:before {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background: ${colors.vashti100};
+        mix-blend-mode: multiply;
+        opacity: 0;
+        transition: all 150ms ease-in-out;
+    }
+
+    img {
+        max-width: 300px;
+        width: 100%;
+        box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.04);
+
+        @media(max-width:${dimensions.maxwidthTablet}px) {
+            max-width: 300px;
+        }
+    }
+`
+
+const PostMetas = styled("div")`
+    display: flex;
+    align-items: center;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    margin-right: 0em;
+    margin-left: 0em;
+    justify-content: space-between;
+    font-size: 0.85em;
+    color: ${colors.grey600};
+`
+
+const PostAuthor = styled("div")`
+    margin: 0;
+`
+
+const PostDate = styled("div")`
+    margin: 0;
+`
+
+// const PostDescription = styled("div")`
+//     margin-top: 2em;
+//     margin-bottom: 4em;
+
+//     p:last-of-type {
+//         margin: 0;
+//     }
+// `
+
+// const PostCardAction = styled("div")`
+//     font-weight: 600;
+//     text-decoration: none;
+//     color: currentColor;
+//     transition: all 150ms ease-in-out;
+
+//     span {
+//         margin-left: 1em;
+//         transform: translateX(-8px);
+//         display: inline-block;
+//         transition: transform 400ms ease-in-out;
+//     }
+// `
+
+const PostCard = ({ author, category, date, title, description, image, uid}) => (
     <PostCardContainer className="BlogPostCard" to={`/blog/${uid}`}>
-        <PostCategory>
-            {category[0].text}
-        </PostCategory>
-        <PostTitle>
-            {title[0].text}
-        </PostTitle>
-        <PostDescription>
-            {RichText.render(description)}
-        </PostDescription>
-        <PostCardAction className="PostCardAction">
-            Read more <span>&#8594;</span>
-        </PostCardAction>
-        <PostMetas>
+        <PostCardContent>
+            <PostCardCategory>
+                {category[0].text}
+            </PostCardCategory>
+            <PostCardTitle>
+                {title[0].text}
+            </PostCardTitle>
+            <PostCardBlurb>
+                {RichText.render(description)}
+            </PostCardBlurb>
+            <PostCardAction className="PostCardAction">
+                Read more <span>&#8594;</span>
+            </PostCardAction>
+            <PostMetas>
             <PostAuthor>
                 {author}
             </PostAuthor>
@@ -107,6 +225,11 @@ const PostCard = ({ author, category, date, title, description, uid}) => (
                 <Moment format="MMMM D, YYYY">{date}</Moment>
             </PostDate>
         </PostMetas>
+        </PostCardContent>
+        <PostCardImageContainer>
+            <img src={image.url} alt={title[0].text}/>
+        </PostCardImageContainer>
+        
     </PostCardContainer>
 )
 

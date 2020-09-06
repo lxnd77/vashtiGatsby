@@ -10,7 +10,7 @@ const ProjectCardContainer = styled(Link)`
     display: grid;
     grid-template-columns: 4fr 7fr;
     box-shadow: 0px 9px 24px rgba(0, 0, 0, 0.06);
-    margin-bottom: 4em;
+    margin-bottom: 2em;
     transition: all 150ms ease-in-out;
     text-decoration: none;
     color: currentColor;
@@ -119,15 +119,16 @@ const ProjectCardImageContainer = styled("div")`
     background: ${colors.grey200};
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
     overflow: hidden;
     position: relative;
     padding-left: 2em;
     padding-right: 2em;
+    padding-bottom: 1em;
+    padding-top: 1em;
 
     @media(max-width:${dimensions.maxwidthTablet}px) {
-        padding-top: 3em;
-        max-height: 200px;
+        max-height: 100%;
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
@@ -140,19 +141,19 @@ const ProjectCardImageContainer = styled("div")`
         height: 100%;
         left: 0;
         top: 0;
-        background: ${colors.blue500};
+        background: ${colors.vashti100};
         mix-blend-mode: multiply;
         opacity: 0;
         transition: all 150ms ease-in-out;
     }
 
     img {
-        max-width: 400px;
+        max-width: 300px;
         width: 100%;
         box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.04);
 
         @media(max-width:${dimensions.maxwidthTablet}px) {
-            max-width: 300px;
+            max-width: 200px;
         }
     }
 `

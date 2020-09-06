@@ -27,7 +27,7 @@ const LayoutContainer = styled.div`
     }
 
     .Layout__content {
-        padding-bottom: 5em;
+        padding-bottom: 3em;
     }
 `;
 

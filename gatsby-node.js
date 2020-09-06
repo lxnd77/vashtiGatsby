@@ -38,11 +38,65 @@ exports.createPages = async ({ graphql, actions }) => {
                             post_hero_annotation
                             post_date
                             post_category
-                            post_body
                             post_preview_description
                             post_author
                             _meta {
                                 uid
+                            }
+                            body{
+                                ... on PRISMIC_PostBodyText {
+                                    type
+                                    primary{
+                                        title
+                                    }
+                                }
+                                ... on PRISMIC_PostBodyParagraph_s_ {
+                                    type
+                                    primary{
+                                        paragraph
+                                    }
+                                }
+                                ... on PRISMIC_PostBodyImage {
+                                    type
+                                    primary{
+                                        image
+                                    }
+                                }
+                                ... on PRISMIC_PostBodyImglink {
+                                    type
+                                    label
+                                    primary{
+                                        image
+                                        link{
+                                            ... on PRISMIC__ExternalLink {
+                                                _linkType
+                                                url
+                                            }
+                                            ... on PRISMIC__FileLink {
+                                                _linkType
+                                                url
+                                            }
+                                            ... on PRISMIC__ImageLink {
+                                            _linkType
+                                            url
+                                            }
+                                        }
+                                    }
+                                }
+                                ... on PRISMIC_PostBodyImageleftwordsright {
+                                    type
+                                    primary{
+                                        image
+                                        text
+                                    }
+                                }
+                                ... on PRISMIC_PostBodyImagerightwordsleft {
+                                    type
+                                    primary{
+                                        image
+                                        text
+                                    }
+                                }
                             }
                         }
                     }

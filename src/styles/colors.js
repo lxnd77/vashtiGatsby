@@ -50,6 +50,7 @@ const colors = {
     purple200: "#F0E5FF",
     purple100: "#F8F2FF",
 
+    vashti100: "#157074",
     teal600: "#159f9f",
     teal500: "#17B1B1",
     teal200: "#D1EFEF",
