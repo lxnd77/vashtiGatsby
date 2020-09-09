@@ -17,6 +17,7 @@ const SkillCardContainer = styled("div")`
     box-shadow: 0px 9px 24px rgba(21, 112, 116, 0.1);
     transition: all 150ms ease-in-out;
     max-width: 400px;
+    height: 100%;
 
     &:hover {
         box-shadow: 0px 0px 20px rgba(21, 112, 116, 0.4);

@@ -6,7 +6,6 @@ import { RichText } from "prismic-reactjs"
 import PropTypes from "prop-types"
 
 const AboutContainer = styled("div")`
-    padding-top: 1em;
     display: grid;
     grid-template-columns: 8em 1fr;
     grid-gap: 3em;
@@ -17,7 +16,7 @@ const AboutContainer = styled("div")`
 
     @media (max-width: ${dimensions.maxwidthMobile}px) {
         grid-template-columns: 7em 1fr;
-        grid-template-rows: 3em 1fr;
+        grid-template-rows: 1em 1fr;
         grid-gap: 2em;
     }
 `

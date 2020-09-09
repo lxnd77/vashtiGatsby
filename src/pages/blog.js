@@ -101,7 +101,7 @@ const Blog = ({ posts, meta, categories }) => {
                 Blog
             </BlogTitle>
             <CategoryButtonContainer>
-                <Flex>
+                <Flex flexWrap={"wrap"}>
                     {uniqueCategories.map((category,i) => (
                         <Button
                         key={i}

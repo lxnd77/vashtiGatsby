@@ -10,14 +10,13 @@ import About from "components/About";
 import Layout from "components/Layout";
 import ProjectCard from "components/ProjectCard";
 import SkillCard from "components/SkillCard";
+import TestimonialCard from "components/TestimonialCard";
 import { Box, Flex } from "rebass";
 
 import profile from "images/profile.png";
 
 const Hero = styled("div")`
-    padding-top: 2.5em;
-    padding-bottom: 3em;
-    margin-bottom: 3em;
+    padding-top: 2em;
     max-width: 830px;
 
     @media(max-width:${dimensions.maxwidthMobile}px) {
@@ -86,7 +85,7 @@ const ProfilePictureContainer = styled("div")`
     img {
         max-width: 500px;
         width: 100%;
-        box-shadow: 0px 0px 24px ${colors.vashti100};
+        box-shadow: 0px 0px 12px ${colors.vashti100};
 
         @media(max-width:${dimensions.maxwidthTablet}px) {
             max-width: 300px;
@@ -95,12 +94,12 @@ const ProfilePictureContainer = styled("div")`
 `
 
 const Section = styled("div")`
-    margin-bottom: 4em;
+
     display: flex;
     flex-direction: column;
 
     @media(max-width:${dimensions.maxwidthTablet}px) {
-        margin-bottom: 4em;
+        margin-bottom: 2em;
     }
 
     &:last-of-type {
@@ -138,7 +137,7 @@ const WorkAction = styled(Link)`
     }
 `
 
-const RenderBody = ({ home, projects, skills, meta }) => (
+const RenderBody = ({ home, projects, skills, testimonials, meta }) => (
     <>
         <Helmet
             defer={false}
@@ -213,6 +212,7 @@ const RenderBody = ({ home, projects, skills, meta }) => (
             </Flex>
         </Section>
         <Section>
+            <h3>Skills</h3> 
             <Flex flexWrap='wrap'
             sx={{
                 p: 4,
@@ -244,6 +244,20 @@ const RenderBody = ({ home, projects, skills, meta }) => (
                 See more work <span>&#8594;</span>
             </WorkAction>
         </Section>
+        <Section>
+            <h3>Testimonials</h3>
+            <Flex flexWrap='wrap'>
+                {testimonials.map((testimonial,i) => (
+                    <TestimonialCard
+                        key={i}
+                        title={testimonial.node.title}
+                        text={testimonial.node.text}
+                        image={testimonial.node.image}
+                        uid={testimonial.node._meta.uid}
+                    />
+                ))}
+            </Flex>
+        </Section>
         
     </>
 );
@@ -253,13 +267,14 @@ export default ({ data }) => {
     const doc = data.prismic.allHoms.edges.slice(0, 1).pop();
     const projects = data.prismic.allProjects.edges;
     const skills = data.prismic.allSkills.edges;
+    const testimonials = data.prismic.allTestimonials.edges;
     const meta = data.site.siteMetadata;
 
-    if (!doc || !projects) return null;
+    if (!doc || !projects || !skills || !testimonials) return null;
 
     return (
         <Layout>
-            <RenderBody home={doc.node} projects={projects} skills={skills} meta={meta}/>
+            <RenderBody home={doc.node} projects={projects} skills={skills} testimonials={testimonials} meta={meta}/>
         </Layout>
     )
 }
@@ -268,6 +283,7 @@ RenderBody.propTypes = {
     home: PropTypes.object.isRequired,
     projects: PropTypes.array.isRequired,
     skills: PropTypes.array.isRequired,
+    testimonials: PropTypes.array.isRequired,
     meta: PropTypes.object.isRequired,
 };
 
@@ -315,6 +331,18 @@ export const query = graphql`
                         skill_text
                         skill_image
                         _meta {
+                            uid
+                        }
+                    }
+                }
+            }
+            allTestimonials {
+                edges {
+                    node {
+                        title
+                        image
+                        text
+                        _meta{
                             uid
                         }
                     }

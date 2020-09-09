@@ -101,6 +101,18 @@ exports.createPages = async ({ graphql, actions }) => {
                         }
                     }
                 }
+                allTestimonials {
+                    edges {
+                        node {
+                            title
+                            image
+                            text
+                            _meta{
+                                uid
+                            }
+                        }
+                    }
+                }
             }
         }
     `)

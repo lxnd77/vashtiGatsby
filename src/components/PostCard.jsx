@@ -224,12 +224,11 @@ const PostCard = ({ author, category, date, title, description, image, uid}) => 
             <PostDate>
                 <Moment format="MMMM D, YYYY">{date}</Moment>
             </PostDate>
-        </PostMetas>
+            </PostMetas>
         </PostCardContent>
         <PostCardImageContainer>
             <img src={image.url} alt={title[0].text}/>
-        </PostCardImageContainer>
-        
+        </PostCardImageContainer>    
     </PostCardContainer>
 )
 
