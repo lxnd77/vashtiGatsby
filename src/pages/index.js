@@ -183,6 +183,7 @@ const RenderBody = ({ home, projects, skills, testimonials, meta }) => (
             <>
                 {RichText.render(home.hero_title)}
             </>
+            <h2>{home.content[0].text}</h2>
             {/* <Flex>
             
             <Box p={1} width={1/3}>
