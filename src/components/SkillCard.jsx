@@ -16,7 +16,7 @@ const SkillCardContainer = styled("div")`
     flex-direction: column;
     box-shadow: 0px 9px 24px rgba(21, 112, 116, 0.1);
     transition: all 150ms ease-in-out;
-    max-width: 400px;
+    max-width: 500px;
     height: 100%;
 
     &:hover {
@@ -83,8 +83,8 @@ const SkillCardImageContainer = styled("div")`
     }
 
     img {
-        width: 100px;
-        height: 100px;
+        width: 200px;
+        height: 150px;
         max-width: 300px;
         
 

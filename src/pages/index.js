@@ -141,7 +141,7 @@ const RenderBody = ({ home, projects, skills, testimonials, meta }) => (
     <>
         <Helmet
             defer={false}
-            title={meta.title}
+            title={'Vashti Kalvi'}
             titleTemplate={`%s`}
             meta={[
                 {
