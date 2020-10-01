@@ -1,7 +1,11 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/8ee770f1-66af-4fa9-a560-63ebf7568118/deploy-status)](https://app.netlify.com/sites/vashtikalvi/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/9f31a0be-c409-4b68-9c50-3b738ee022a9/deploy-status)](https://app.netlify.com/sites/vashtiswebsite/deploys)
 
 # Vashti's Website
-
+ 
+ ## - Gatsby - Prismic - Netlify - Namecheap -
+ 
+ ## - Deployed at https://vashtikalvi.com -
+ 
  Powered by Prist Gatsby Prismic Starter by Marguerite Roth 
 
 
