@@ -77,10 +77,7 @@ const Work = ({ projects, meta, categories }) => {
                     content: meta.description,
                 },
             ].concat(meta)}
-        >
-            {/* <script src='https://embed.tawk.to/5f5457e34704467e89ec7fe0/default' async='true' defer='false'>
-            </script> */}
-        </Helmet>
+        />
         <Layout>
             <WorkTitle>
                 Work

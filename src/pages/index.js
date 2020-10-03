@@ -141,7 +141,7 @@ const RenderBody = ({ home, projects, skills, testimonials, meta }) => (
     <>
         <Helmet
             defer={false}
-            title={meta.title}
+            title={'Vashti Kalvi'}
             titleTemplate={`%s`}
             meta={[
                 {
@@ -177,10 +177,7 @@ const RenderBody = ({ home, projects, skills, testimonials, meta }) => (
                     content: meta.description,
                 },
             ].concat(meta)}
-        >
-            <script src='https://embed.tawk.to/5f5457e34704467e89ec7fe0/default' async='true' defer='true'>
-            </script>
-        </Helmet>
+        />
         
         <Hero>
             <>

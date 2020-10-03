@@ -1,16 +1,7 @@
-// import React from 'react'
+/**
+ * Implement Gatsby's SSR (Server Side Rendering) APIs in this file.
+ *
+ * See: https://www.gatsbyjs.org/docs/ssr-apis/
+ */
 
-//   export default onRenderBody = ({ setPostBodyComponents }) => {
-//     setPostBodyComponents([
-//       // We need a key here for Gatsby to stop complaining.
-//     <script type='text/javascript'>
-//         var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-//         var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-//         s1.async=true;
-//         s1.src='https://embed.tawk.to/5f5457e34704467e89ec7fe0/default';
-//         s1.charset='UTF-8';
-//         s1.setAttribute('crossorigin','*');
-//         s0.parentNode.insertBefore(s1,s0);
-//      </script>,
-//     ])
-//   }
+// You can delete this file if you're not using it
