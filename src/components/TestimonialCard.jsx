@@ -77,6 +77,7 @@ const TestimonialCardImageContainer = styled("div")`
     -webkit-align-items: center;
     align-items: center;
     justify-content: flex-start;
+    height: 100%;
 
     @media (max-width: ${dimensions.maxwidthTablet}px) {
         
@@ -103,6 +104,7 @@ const TestimonialCardImageContainer = styled("div")`
         width: 100%;
         height: auto;
         margin: auto auto;
+        border-radius: 50%;
         @media (max-width: ${dimensions.maxwidthTablet}px) {
             
         }
