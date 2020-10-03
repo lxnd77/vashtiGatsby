@@ -5,13 +5,7 @@ module.exports = {
     author: `Rishabh Bhargava`,
   },
   plugins: [
-    {
-        resolve: `gatsby-plugin-google-analytics`,
-        options: {
-            trackingId: "UA-177768005-1",
-            head: true,
-        },
-    },
+    
     `gatsby-plugin-react-helmet`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
@@ -50,6 +44,20 @@ module.exports = {
         cache_busting_mode: `none`,
       },
     },
+    // {
+    //   resolve: `gatsby-plugin-tawk`,
+    //   options: {
+    //     tawkId: "5f5457e34704467e89ec7fe0",
+    //   },
+    // },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+          trackingId: "UA-177768005-1",
+          head: true,
+      },
+    },
+    
     // https://www.gatsbyjs.org/packages/gatsby-plugin-google-analytics/
     
     // this (optional) plugin enables Progressive Web App + Offline functionality
