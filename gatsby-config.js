@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `Vashti Kalvi`,
-    description: `A website to store Vashti Kalvi's portfolio and blog.`,
+    description: `Writing and Education Consulting.`,
     author: `Rishabh Bhargava`,
   },
   plugins: [
