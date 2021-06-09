@@ -113,7 +113,6 @@ const PostDate = styled("div")`
     margin: 0;
 `
 
-
 const Post = ({ post, meta }) => {
 
     const pageContent = post.body.map((slice, index) => {
@@ -150,11 +149,13 @@ const Post = ({ post, meta }) => {
             return(
                 <div>
                     <Flex>
-                        <Box width={['100%','100%',1/3]}>
+                        <Box width={['100%','100%',1/3]} pt={3}>
                             <img key={`slice-${index}`} alt={"img"} src={slice.primary.image.url}/>
                         </Box>
-                        <Box width={['100%','100%',2/3]}>
-                            {RichText.render(slice.primary.text)}
+                        <Box width={['100%','100%',2/3]} pr={4} pl={4}>
+
+                                {RichText.render(slice.primary.text)}
+
                         </Box>
                     </Flex>
                 </div>
@@ -164,10 +165,12 @@ const Post = ({ post, meta }) => {
             return(
                 <div>
                     <Flex>
-                        <Box width={['100%','100%',2/3]}>
-                            {RichText.render(slice.primary.text)} 
+                        <Box width={['100%','100%',2/3]} pr={4} pl={4}>
+
+                                {RichText.render(slice.primary.text)}
+
                         </Box>
-                        <Box width={['100%','100%',1/3]}>
+                        <Box width={['100%','100%',1/3]} pt={3}>
                             <img key={`slice-${index}`} alt={"img"} src={slice.primary.image.url}/> 
                         </Box>
                     </Flex>

@@ -9,6 +9,7 @@ import dimensions from "styles/dimensions";
 import About from "components/About";
 import Layout from "components/Layout";
 import ProjectCard from "components/ProjectCard";
+import PostCard from "components/PostCard";
 import SkillCard from "components/SkillCard";
 import TestimonialCard from "components/TestimonialCard";
 import { Box, Flex } from "rebass";
@@ -137,7 +138,7 @@ const WorkAction = styled(Link)`
     }
 `
 
-const RenderBody = ({ home, projects, skills, testimonials, meta }) => (
+const RenderBody = ({ home, projects, posts, skills, testimonials, meta }) => (
     <>
         <Helmet
             defer={false}
@@ -234,6 +235,7 @@ const RenderBody = ({ home, projects, skills, testimonials, meta }) => (
             </Flex>
         </Section>
         <Section>
+            <h3>Projects</h3>
             {projects.map((project, i) => (
                 <ProjectCard
                     key={i}
@@ -246,6 +248,26 @@ const RenderBody = ({ home, projects, skills, testimonials, meta }) => (
             ))}
             <WorkAction to={"/work"}>
                 See more work <span>&#8594;</span>
+            </WorkAction>
+            
+        </Section>
+        <Section>
+            <h3>Blog</h3>
+            {posts.map((post,i) => (
+                (i<=3) && 
+                <PostCard
+                    key={i}
+                    author={post.node.post_author}
+                    category={post.node.post_category}
+                    title={post.node.post_title}
+                    date={post.node.post_date}
+                    description={post.node.post_preview_description}
+                    image={post.node.post_hero_image}
+                    uid={post.node._meta.uid}
+                />
+            ))}
+            <WorkAction to={"/blog"}>
+                See more blogposts <span>&#8594;</span>
             </WorkAction>
         </Section>
         <Section>
@@ -270,15 +292,16 @@ export default ({ data }) => {
     //Required check for no data being returned
     const doc = data.prismic.allHoms.edges.slice(0, 1).pop();
     const projects = data.prismic.allProjects.edges;
+    const posts = data.prismic.allPosts.edges;
     const skills = data.prismic.allSkills.edges;
     const testimonials = data.prismic.allTestimonials.edges;
     const meta = data.site.siteMetadata;
 
-    if (!doc || !projects || !skills || !testimonials) return null;
+    if (!doc || !projects || !skills || !testimonials ||!posts) return null;
 
     return (
         <Layout>
-            <RenderBody home={doc.node} projects={projects} skills={skills} testimonials={testimonials} meta={meta}/>
+            <RenderBody home={doc.node} projects={projects} posts={posts} skills={skills} testimonials={testimonials} meta={meta}/>
         </Layout>
     )
 }
@@ -286,6 +309,7 @@ export default ({ data }) => {
 RenderBody.propTypes = {
     home: PropTypes.object.isRequired,
     projects: PropTypes.array.isRequired,
+    posts: PropTypes.array.isRequired,
     skills: PropTypes.array.isRequired,
     testimonials: PropTypes.array.isRequired,
     meta: PropTypes.object.isRequired,
@@ -322,6 +346,21 @@ export const query = graphql`
                         project_preview_thumbnail
                         project_category
                         project_post_date
+                        _meta {
+                            uid
+                        }
+                    }
+                }
+            }
+            allPosts(sortBy: post_date_DESC) {
+                edges {
+                    node {
+                        post_title
+                        post_date
+                        post_category
+                        post_preview_description
+                        post_author
+                        post_hero_image
                         _meta {
                             uid
                         }
