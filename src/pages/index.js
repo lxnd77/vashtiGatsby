@@ -1,27 +1,28 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Helmet from "react-helmet";
-import { RichText } from "prismic-reactjs";
-import { graphql, Link } from "gatsby";
-import styled from "@emotion/styled";
-import colors from "styles/colors";
-import dimensions from "styles/dimensions";
-import About from "components/About";
-import Layout from "components/Layout";
-import ProjectCard from "components/ProjectCard";
-import PostCard from "components/PostCard";
-import SkillCard from "components/SkillCard";
-import TestimonialCard from "components/TestimonialCard";
-import { Box, Flex } from "rebass";
+import React from "react"
+import PropTypes from "prop-types"
+import Helmet from "react-helmet"
+import { RichText } from "prismic-reactjs"
+import { graphql, Link } from "gatsby"
+import styled from "@emotion/styled"
+import Button from "components/_ui/Button"
+import colors from "styles/colors"
+import dimensions from "styles/dimensions"
+import About from "components/About"
+import Layout from "components/Layout"
+import ProjectCard from "components/ProjectCard"
+import PostCard from "components/PostCard"
+import SkillCard from "components/SkillCard"
+import TestimonialCard from "components/TestimonialCard"
+import { Box, Flex } from "rebass"
 
-import profile from "images/profile.png";
+import profile from "images/profile.png"
 
 const Hero = styled("div")`
     padding-top: 2em;
     max-width: 830px;
 
-    @media(max-width:${dimensions.maxwidthMobile}px) {
-       margin-bottom: 3em;
+    @media (max-width: ${dimensions.maxwidthMobile}px) {
+        margin-bottom: 3em;
     }
 
     h1 {
@@ -31,22 +32,46 @@ const Hero = styled("div")`
             text-decoration: none;
             transition: all 100ms ease-in-out;
 
-            &:nth-of-type(1) { color: ${colors.blue500}; }
-            &:nth-of-type(2) { color: ${colors.orange500}; }
-            &:nth-of-type(3) { color: ${colors.purple500}; }
-            &:nth-of-type(4) { color: ${colors.green500}; }
-            &:nth-of-type(5) { color: ${colors.teal500}; }
+            &:nth-of-type(1) {
+                color: ${colors.blue500};
+            }
+            &:nth-of-type(2) {
+                color: ${colors.orange500};
+            }
+            &:nth-of-type(3) {
+                color: ${colors.purple500};
+            }
+            &:nth-of-type(4) {
+                color: ${colors.green500};
+            }
+            &:nth-of-type(5) {
+                color: ${colors.teal500};
+            }
 
             &:hover {
                 cursor: pointer;
                 transition: all 100ms ease-in-out;
 
-                &:nth-of-type(1) { color: ${colors.blue600};    background-color: ${colors.blue200};}
-                &:nth-of-type(2) { color: ${colors.orange600};  background-color: ${colors.orange200};}
-                &:nth-of-type(3) { color: ${colors.purple600};  background-color: ${colors.purple200};}
-                &:nth-of-type(4) { color: ${colors.green600};   background-color: ${colors.green200};}
-                &:nth-of-type(5) { color: ${colors.teal600};    background-color: ${colors.teal200};}
-
+                &:nth-of-type(1) {
+                    color: ${colors.blue600};
+                    background-color: ${colors.blue200};
+                }
+                &:nth-of-type(2) {
+                    color: ${colors.orange600};
+                    background-color: ${colors.orange200};
+                }
+                &:nth-of-type(3) {
+                    color: ${colors.purple600};
+                    background-color: ${colors.purple200};
+                }
+                &:nth-of-type(4) {
+                    color: ${colors.green600};
+                    background-color: ${colors.green200};
+                }
+                &:nth-of-type(5) {
+                    color: ${colors.teal600};
+                    background-color: ${colors.teal200};
+                }
             }
         }
     }
@@ -63,7 +88,7 @@ const ProfilePictureContainer = styled("div")`
     padding-top: 2em;
     padding-bottom: 2em;
 
-    @media(max-width:${dimensions.maxwidthTablet}px) {
+    @media (max-width: ${dimensions.maxwidthTablet}px) {
         padding-top: 3em;
         flex-direction: column;
         align-items: center;
@@ -88,18 +113,17 @@ const ProfilePictureContainer = styled("div")`
         width: 100%;
         box-shadow: 0px 0px 12px ${colors.vashti100};
 
-        @media(max-width:${dimensions.maxwidthTablet}px) {
+        @media (max-width: ${dimensions.maxwidthTablet}px) {
             max-width: 300px;
         }
     }
 `
 
 const Section = styled("div")`
-
     display: flex;
     flex-direction: column;
 
-    @media(max-width:${dimensions.maxwidthTablet}px) {
+    @media (max-width: ${dimensions.maxwidthTablet}px) {
         margin-bottom: 2em;
     }
 
@@ -115,8 +139,8 @@ const WorkAction = styled(Link)`
     transition: all 150ms ease-in-out;
     margin-left: auto;
 
-    @media(max-width:${dimensions.maxwidthTablet}px) {
-       margin: 0 auto;
+    @media (max-width: ${dimensions.maxwidthTablet}px) {
+        margin: 0 auto;
     }
 
     span {
@@ -137,6 +161,15 @@ const WorkAction = styled(Link)`
         }
     }
 `
+
+const scrollToBottom = () => {
+    window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth",
+        /* you can also use 'auto' behaviour 
+         in place of 'smooth' */
+    })
+}
 
 const RenderBody = ({ home, projects, posts, skills, testimonials, meta }) => (
     <>
@@ -179,14 +212,15 @@ const RenderBody = ({ home, projects, posts, skills, testimonials, meta }) => (
                 },
             ].concat(meta)}
         >
-            <script src='https://embed.tawk.to/5f5457e34704467e89ec7fe0/default' async='true' defer='false'>
-            </script>
+            <script
+                src="https://embed.tawk.to/5f5457e34704467e89ec7fe0/default"
+                async="true"
+                defer="false"
+            ></script>
         </Helmet>
-        
+
         <Hero>
-            <>
-                {RichText.render(home.hero_title)}
-            </>
+            <>{RichText.render(home.hero_title)}</>
             <h2>{home.content[0].text}</h2>
             {/* <Flex>
             
@@ -202,36 +236,40 @@ const RenderBody = ({ home, projects, posts, skills, testimonials, meta }) => (
         </Hero>
         <Section>
             {RichText.render(home.about_title)}
-            <Flex flexWrap='wrap'>
-                <Box p={1} width={['100%','100%',2/3]}>
+            <Flex flexWrap="wrap">
+                <Box p={1} width={["100%", "100%", 2 / 3]}>
                     <About
-                    bio={home.about_bio}
-                    socialLinks={home.about_links}
+                        bio={home.about_bio}
+                        socialLinks={home.about_links}
                     />
+                    <Button variant="secondary" onClick={scrollToBottom}>
+                        Book a Meeting!
+                    </Button>
                 </Box>
-                <Box p={1} width={['100%','100%',1/3]}>
+                <Box p={1} width={["100%", "100%", 1 / 3]}>
                     <ProfilePictureContainer className="ProfilePictureContainer">
-                        <img src={profile} alt="Vashti"/>
+                        <img src={profile} alt="Vashti" />
                     </ProfilePictureContainer>
                 </Box>
             </Flex>
         </Section>
         <Section>
-            <h3>Skills</h3> 
-            <Flex flexWrap='wrap'
-            sx={{
-                p: 4,
-                
-              }}>
-            {skills.map((skill, i) => (
-                <SkillCard
-                    key = {i}
-                    title = {skill.node.skill_title}
-                    text = {skill.node.skill_text}
-                    image = {skill.node.skill_image}
-                    uid = {skill.node._meta.uid}
-                />
-            ))}
+            <h3>Services</h3>
+            <Flex
+                flexWrap="wrap"
+                sx={{
+                    p: 4,
+                }}
+            >
+                {skills.map((skill, i) => (
+                    <SkillCard
+                        key={i}
+                        title={skill.node.skill_title}
+                        text={skill.node.skill_text}
+                        image={skill.node.skill_image}
+                        uid={skill.node._meta.uid}
+                    />
+                ))}
             </Flex>
         </Section>
         <Section>
@@ -249,31 +287,32 @@ const RenderBody = ({ home, projects, posts, skills, testimonials, meta }) => (
             <WorkAction to={"/work"}>
                 See more work <span>&#8594;</span>
             </WorkAction>
-            
         </Section>
         <Section>
             <h3>Blog</h3>
-            {posts.map((post,i) => (
-                (i<=3) && 
-                <PostCard
-                    key={i}
-                    author={post.node.post_author}
-                    category={post.node.post_category}
-                    title={post.node.post_title}
-                    date={post.node.post_date}
-                    description={post.node.post_preview_description}
-                    image={post.node.post_hero_image}
-                    uid={post.node._meta.uid}
-                />
-            ))}
+            {posts.map(
+                (post, i) =>
+                    i <= 3 && (
+                        <PostCard
+                            key={i}
+                            author={post.node.post_author}
+                            category={post.node.post_category}
+                            title={post.node.post_title}
+                            date={post.node.post_date}
+                            description={post.node.post_preview_description}
+                            image={post.node.post_hero_image}
+                            uid={post.node._meta.uid}
+                        />
+                    )
+            )}
             <WorkAction to={"/blog"}>
                 See more blogposts <span>&#8594;</span>
             </WorkAction>
         </Section>
         <Section>
             <h3>Testimonials</h3>
-            <Flex flexWrap='wrap'>
-                {testimonials.map((testimonial,i) => (
+            <Flex flexWrap="wrap">
+                {testimonials.map((testimonial, i) => (
                     <TestimonialCard
                         key={i}
                         title={testimonial.node.title}
@@ -284,24 +323,47 @@ const RenderBody = ({ home, projects, posts, skills, testimonials, meta }) => (
                 ))}
             </Flex>
         </Section>
-        
+        <Section>
+            <iframe
+                title="meeting"
+                src="https://app.simplymeet.me/vashti-kalvi?view=compact"
+                style={{width:'100%', height:'510px'}}
+                frameborder="0"
+                scrolling="yes"
+            ></iframe>
+            {/* <div style={{border: "2px solid #D5CC5A", overflow: "hidden", margin: "15px auto", maxWidth: "80vw"}}>
+                <iframe
+                    scrolling="no"
+                    title="meeting"
+                    src="https://app.simplymeet.me/vashti-kalvi?view=compact"
+                    style={{border:"0px none", marginLeft: "0px", height: "500px", marginTop: "-20px", marginBottom: "-80px", width: "650px"}}
+                ></iframe>
+            </div> */}
+        </Section>
     </>
-);
+)
 
 export default ({ data }) => {
     //Required check for no data being returned
-    const doc = data.prismic.allHoms.edges.slice(0, 1).pop();
-    const projects = data.prismic.allProjects.edges;
-    const posts = data.prismic.allPosts.edges;
-    const skills = data.prismic.allSkills.edges;
-    const testimonials = data.prismic.allTestimonials.edges;
-    const meta = data.site.siteMetadata;
+    const doc = data.prismic.allHoms.edges.slice(0, 1).pop()
+    const projects = data.prismic.allProjects.edges
+    const posts = data.prismic.allPosts.edges
+    const skills = data.prismic.allSkills.edges
+    const testimonials = data.prismic.allTestimonials.edges
+    const meta = data.site.siteMetadata
 
-    if (!doc || !projects || !skills || !testimonials ||!posts) return null;
+    if (!doc || !projects || !skills || !testimonials || !posts) return null
 
     return (
         <Layout>
-            <RenderBody home={doc.node} projects={projects} posts={posts} skills={skills} testimonials={testimonials} meta={meta}/>
+            <RenderBody
+                home={doc.node}
+                projects={projects}
+                posts={posts}
+                skills={skills}
+                testimonials={testimonials}
+                meta={meta}
+            />
         </Layout>
     )
 }
@@ -313,7 +375,7 @@ RenderBody.propTypes = {
     skills: PropTypes.array.isRequired,
     testimonials: PropTypes.array.isRequired,
     meta: PropTypes.object.isRequired,
-};
+}
 
 export const query = graphql`
     {
@@ -385,7 +447,7 @@ export const query = graphql`
                         title
                         image
                         text
-                        _meta{
+                        _meta {
                             uid
                         }
                     }

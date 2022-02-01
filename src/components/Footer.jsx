@@ -6,7 +6,7 @@ import Logo from "images/icon.png";
 
 
 const FooterContainer = styled("div")`
-    padding-top: 3.75em;
+    
     padding-bottom: 3em;
     display: flex;
     flex-direction: column;
@@ -37,7 +37,7 @@ const Footer = () => (
             <img src={Logo} alt="Vashti Kalvi" width="150px" height="150px"/>
         </Link>
         <FooterAuthor href="https://github.com/lxnd77">
-            © 2020 — Developed by Rishabh Bhargava
+            © 2022 — Developed by Rishabh Bhargava
         </FooterAuthor>
     </FooterContainer>
 )
