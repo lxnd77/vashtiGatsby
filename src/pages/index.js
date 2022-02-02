@@ -162,14 +162,14 @@ const WorkAction = styled(Link)`
     }
 `
 
-const scrollToBottom = () => {
-    window.scrollTo({
-        top: document.documentElement.scrollHeight,
-        behavior: "smooth",
-        /* you can also use 'auto' behaviour 
-         in place of 'smooth' */
-    })
-}
+// const scrollToBottom = () => {
+//     window.scrollTo({
+//         top: document.documentElement.scrollHeight,
+//         behavior: "smooth",
+//         /* you can also use 'auto' behaviour
+//          in place of 'smooth' */
+//     })
+// }
 
 const RenderBody = ({ home, projects, posts, skills, testimonials, meta }) => (
     <>
@@ -242,9 +242,13 @@ const RenderBody = ({ home, projects, posts, skills, testimonials, meta }) => (
                         bio={home.about_bio}
                         socialLinks={home.about_links}
                     />
-                    <Button variant="secondary" onClick={scrollToBottom}>
-                        Book a Meeting!
-                    </Button>
+                    <a
+                        href="https://www.appointfix.com/book/Vashti-Kalvi"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <Button variant="secondary">Book a Meeting!</Button>
+                    </a>
                 </Box>
                 <Box p={1} width={["100%", "100%", 1 / 3]}>
                     <ProfilePictureContainer className="ProfilePictureContainer">
@@ -324,13 +328,13 @@ const RenderBody = ({ home, projects, posts, skills, testimonials, meta }) => (
             </Flex>
         </Section>
         <Section>
-            <iframe
+            {/* <iframe
                 title="meeting"
-                src="https://app.simplymeet.me/vashti-kalvi?view=compact"
+                src="https://appointfix.com/book/vashti-kalvi"
                 style={{width:'100%', height:'510px'}}
                 frameborder="0"
                 scrolling="yes"
-            ></iframe>
+            ></iframe> */}
             {/* <div style={{border: "2px solid #D5CC5A", overflow: "hidden", margin: "15px auto", maxWidth: "80vw"}}>
                 <iframe
                     scrolling="no"
