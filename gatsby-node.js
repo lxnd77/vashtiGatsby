@@ -30,7 +30,7 @@ exports.createPages = async ({ graphql, actions }) => {
                         }
                     }
                 }
-                allPosts {
+                allPosts (first: 100){
                     edges {
                         node {
                             post_title
