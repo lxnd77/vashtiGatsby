@@ -160,7 +160,7 @@ Blog.propTypes = {
 export const query = graphql`
     {
         prismic {
-            allPosts(sortBy: post_date_DESC) {
+allPosts(sortBy: post_date_DESC, first: 100) {
                 edges {
                     node {
                         post_title
